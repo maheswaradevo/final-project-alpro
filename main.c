@@ -112,7 +112,7 @@ int main()
     int result;
     element data[50];
     FILE *fp;
-    int jam, mnt, dtk, i=0, choice;
+    int jam, mnt, dtk;
     char name[50];
     while(1){
         printf("\n1. MASUKKAN IDENTITAS ANDA\n");
