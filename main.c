@@ -143,12 +143,13 @@ int main()
                 printf("KENDARAAN PELANGGAN : \n");
                 printf("1. MOBIL\n");
                 printf("2. MOTOR\n");
+                printf("MASUKKAN PILIHAN : ");
                 scanf("%d", &choice);
                 switch(choice){
                     case 1:
                     printf("\nMASUKKAN BERAPA LAMA PELANGGAN BERADA DI LOKASI (H/M/S) : ");
                     scanf("%d %d %d", &jam, &mnt, &dtk);
-                    printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK", jam, mnt, dtk);
+                    printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK\n", jam, mnt, dtk);
                     costCountA(data[0].price, jam);
                     break;
                     case 2:
