@@ -38,7 +38,7 @@ int main(){
 				printf("________________________________________________________________________\n");
 				printf("|                           Daftar Souvenir                            |\n");
 				printf("|______________________________________________________________________|\n");
-				//daftar_souvenir();
+				daftar_souvenir();
 				break;
 			case '2':
 				system("cls");
@@ -52,7 +52,7 @@ int main(){
 				printf("________________________________________________________________________\n");
 				printf("|                            Tambah Souvenir                           |\n");
 				printf("|______________________________________________________________________|\n");
-				//tambah_souvenir();
+				tambah_souvenir();
 				break;
 			case '4':
 				system("cls");
@@ -82,3 +82,35 @@ int main(){
     return 0;
 }
 
+void tambah_souvenir(){
+	Souvenir Produk;
+	SOUVENIR = fopen("souvenir.txt", "a+");
+	printf("Nama Produk \t\t: "); scanf("%[^\n]",&Produk.nama); fflush(stdin);
+	printf("No Produk \t\t: "); scanf("%i",&Produk.no); fflush(stdin);
+	printf("Jumlah Produk \t\t: "); scanf("%i", &Produk.jmlh); fflush(stdin);
+	printf("Harga Produk \t\t: "); scanf("%i", &Produk.harga); fflush(stdin);
+	printf("Tunggu Sebentar...\n");
+	fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk.nama, Produk.no, Produk.jmlh, Produk.harga);
+	printf("Selamat! Produk sudah berhasil ditambahkan.\n");
+	fclose(SOUVENIR);
+}
+
+void daftar_souvenir(){
+	Souvenir Produk;
+    SOUVENIR = fopen("souvenir.txt", "r");
+	printf("========================================================================================\n");
+    printf("No \t"); 
+	printf("Nama \t\t\t");
+    printf("Jumlah \t");
+	printf("Harga ");
+    printf("\n======================================================================================\n");
+	while (!feof(SOUVENIR)){
+    fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk.nama, &Produk.no, &Produk.jmlh, &Produk.harga);
+		fflush(stdin);
+			printf("|%-2i| \t", Produk.no); 
+			printf("|%-30s|", Produk.nama);
+			printf("|%-4i|", Produk.jmlh);
+			printf("|%-10i| \n", Produk.harga);
+        }
+    fclose(SOUVENIR);
+}
