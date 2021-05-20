@@ -29,7 +29,7 @@ int main(){
         printf("===========================SOUVENIR SHOP===========================\n");
         printf("===================================================================\n");
         printf("~MENU~ \t: \n");
-		printf("1. Daftar Souvenir \n2. Cari Souvenir \n3. Tambah Souvenir (Admin) \n4. Daftar Pembelian (Admin) \n5. Update (Admin) \n6. Keluar \n");
+		printf("1. Daftar Souvenir \n2. Cari Souvenir \n3. Pembelian \n4. Tambah Souvenir (Admin) \n5. Daftar Pembelian (Admin) \n6. Update (Admin) \n7. Keluar \n");
 		printf("Masukkan Pilihan :");
 		scanf("%c", &pilihan); fflush(stdin);
 		system("cls");
@@ -46,30 +46,37 @@ int main(){
 				printf("________________________________________________________________________\n");
 				printf("|                             Cari Souvenir                            |\n");
 				printf("|______________________________________________________________________|\n");
-				//cari();
+				cari();
 				break;
 			case '3':
+				system("cls");
+				printf("________________________________________________________________________\n");
+				printf("|                            	 Pembelian                             |\n");
+				printf("|______________________________________________________________________|\n");
+				//pembelian();
+				break;
+			case '4':
 				system("cls");
 				printf("________________________________________________________________________\n");
 				printf("|                            Tambah Souvenir                           |\n");
 				printf("|______________________________________________________________________|\n");
 				tambah_souvenir();
 				break;
-			case '4':
+			case '5':
 				system("cls");
 				printf("________________________________________________________________________\n");
-				printf("|                            Daftar Pembelian                          |\n");
+				printf("|                            Daftar Pembelian                           |\n");
 				printf("|______________________________________________________________________|\n");
 				//pembelian();
 				break;
-			case '5':
+			case '6':
 				system("cls");
 				printf("________________________________________________________________________\n");
 				printf("|                                 Update                               |\n");
 				printf("|______________________________________________________________________|\n");
 				//update_stock();
 				break;
-			case '6':
+			case '7':
 				system("pause");
       			exit(0);
 				break;
@@ -113,5 +120,23 @@ void daftar_souvenir(){
 			printf("|%-4i|", Produk.jmlh);
 			printf("|%-10i| \n", Produk.harga);
         }
+    fclose(SOUVENIR);
+}
+
+void cari(){
+	char cari[50];
+	Souvenir Produk;
+    SOUVENIR = fopen("souvenir.txt", "r");
+	printf("Masukan Nama Produk yang ingin dicari \t: "); scanf("%s",&cari); fflush(stdin);
+	while (!feof(SOUVENIR)){
+    	fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk.nama, &Produk.no, &Produk.jmlh, &Produk.harga);
+		fflush(stdin);
+		if(strcmp(cari,Produk.nama)==0){
+			printf("Nama Produk \t\t: %s\n", Produk.nama);
+			printf("No Produk \t\t: %i\n", Produk.no);
+            printf("Jumlah Produk \t\t: %i\n", Produk.jmlh);
+            printf("Harga Produk \t\t: %i\n", Produk.harga);
+        }
+    }
     fclose(SOUVENIR);
 }
