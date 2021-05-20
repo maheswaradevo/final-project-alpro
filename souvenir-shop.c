@@ -142,29 +142,43 @@ void cari(){
 }
 
 void pembelian(){
-	Souvenir Produk_beli[20];
+	Souvenir Produk[20];
 	time_t now;
 	time (&now);
+	char c;
 	int nomor;
 	int index, i;
+	index = 0;
+	daftar_souvenir();
 	SOUVENIR = fopen("souvenir.txt", "r+");
 	printf("\t===Pilih produk yang akan anda beli===\n");
-	printf("Masukkan nomor produk : \n");
-	scanf("%i", &nomor);
+	printf("Masukkan nomor produk : ");
+	scanf("%i", &nomor); fflush(stdin);
 	while (!feof(SOUVENIR)){
-    	fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk_beli[index].nama, &Produk_beli[index].no, &Produk_beli[index].jmlh, &Produk_beli[index].harga);
+    	fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk[index].nama, &Produk[index].no, &Produk[index].jmlh, &Produk[index].harga);
 		fflush(stdin);
-		printf("Nama Produk \t\t: %s\n", Produk_beli[index].nama);
-		printf("No Produk \t\t: %i\n", Produk_beli[index].no);
-        printf("Jumlah Produk \t\t: %i\n", Produk_beli[index].jmlh);
-        printf("Harga Produk \t\t: %i\n", Produk_beli[index].harga);
-		if(nomor == Produk_beli[index].no){
-			if(Produk_beli[index].no > 1){
+		if(nomor == Produk[index].no){ 
+			if(Produk[index].jmlh > 1){
 				printf("======================Souvenir Berhasil Dibeli===============\n");
-					Produk_beli[index].jmlh -= 1;
-			}
-			else{
-				printf("======================Souvenir Tidak Berhasil Dibeli===============\n");
+				Produk[index].jmlh -= 1;
+				PEMBELIAN = fopen("pembelian.txt", "a");
+				fprintf(PEMBELIAN,"%s_%i_%i_%i\n", Produk[index].nama, Produk[index].no, 1, Produk[index].harga);
+				fclose(PEMBELIAN);
+				printf("Anda ingin mencetak struk?(y/n)");
+                scanf("%c", &c);
+				if(c == 'y' || c == 'Y'){
+                    system("cls");
+					PEMBELIAN = fopen("pembelian.txt", "r");
+					printf("Tanggal pembelian : %s", ctime(&now));
+					printf("======================Struk Bukti Pembelian===============\n");
+                  	printf("Nama Produk \t\t: %s\n", Produk[index].nama);
+					printf("No Produk \t\t: %i\n", Produk[index].no);
+            		printf("Jumlah Produk \t\t: %i\n", Produk[index].jmlh);
+            		printf("Harga Produk \t\t: %i\n", Produk[index].harga);
+              	    printf("Terima Kasih telah berbelanja.\n");
+             	    printf("===========================================================\n");
+					fclose(PEMBELIAN);
+				}
 			}
 		}
 		index++;
@@ -174,7 +188,7 @@ void pembelian(){
 	fclose(SOUVENIR);
 	SOUVENIR = fopen("souvenir.txt","a");
 	for(i=0; i<index; i++){
-		fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk_beli[i].nama, Produk_beli[i].no, Produk_beli[i].jmlh, Produk_beli[i].harga);
+		fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk[i].nama, Produk[i].no, Produk[i].jmlh, Produk[i].harga);
 	}
 	fclose(SOUVENIR);
 }

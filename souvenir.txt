@@ -1,2 +1,3 @@
-Boneka_1_10_50000
-Gantungan Kunci_2_11_15000
+Boneka_1_9_50000
+Gantungan Kunci_2_9_15000
+Case Handphone_3_5_30000
