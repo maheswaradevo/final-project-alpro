@@ -53,7 +53,7 @@ int main(){
 				printf("________________________________________________________________________\n");
 				printf("|                            	 Pembelian                             |\n");
 				printf("|______________________________________________________________________|\n");
-				//pembelian();
+				pembelian();
 				break;
 			case '4':
 				system("cls");
@@ -139,4 +139,42 @@ void cari(){
         }
     }
     fclose(SOUVENIR);
+}
+
+void pembelian(){
+	Souvenir Produk_beli[20];
+	time_t now;
+	time (&now);
+	int nomor;
+	int index, i;
+	SOUVENIR = fopen("souvenir.txt", "r+");
+	printf("\t===Pilih produk yang akan anda beli===\n");
+	printf("Masukkan nomor produk : \n");
+	scanf("%i", &nomor);
+	while (!feof(SOUVENIR)){
+    	fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk_beli[index].nama, &Produk_beli[index].no, &Produk_beli[index].jmlh, &Produk_beli[index].harga);
+		fflush(stdin);
+		printf("Nama Produk \t\t: %s\n", Produk_beli[index].nama);
+		printf("No Produk \t\t: %i\n", Produk_beli[index].no);
+        printf("Jumlah Produk \t\t: %i\n", Produk_beli[index].jmlh);
+        printf("Harga Produk \t\t: %i\n", Produk_beli[index].harga);
+		if(nomor == Produk_beli[index].no){
+			if(Produk_beli[index].no > 1){
+				printf("======================Souvenir Berhasil Dibeli===============\n");
+					Produk_beli[index].jmlh -= 1;
+			}
+			else{
+				printf("======================Souvenir Tidak Berhasil Dibeli===============\n");
+			}
+		}
+		index++;
+	}
+	fclose(SOUVENIR);
+	SOUVENIR = fopen("souvenir.txt","w");
+	fclose(SOUVENIR);
+	SOUVENIR = fopen("souvenir.txt","a");
+	for(i=0; i<index; i++){
+		fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk_beli[i].nama, Produk_beli[i].no, Produk_beli[i].jmlh, Produk_beli[i].harga);
+	}
+	fclose(SOUVENIR);
 }
