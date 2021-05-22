@@ -245,70 +245,70 @@ int main()
             break;
             case 4:
                 do{
-		system("cls");
-        printf("===================================================================\n");
-        printf("===========================SOUVENIR SHOP===========================\n");
-        printf("===================================================================\n");
-        printf("~MENU~ \t: \n");
-		printf("1. Daftar Souvenir \n2. Cari Souvenir \n3. Pembelian \n4. Tambah Souvenir (Admin) \n5. Daftar Pembelian (Admin) \n6. Update (Admin) \n7. Keluar \n");
-		printf("Masukkan Pilihan :");
-		scanf("%c", &pilihan); fflush(stdin);
-		system("cls");
-        switch (pilihan){
-			case '1':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                           Daftar Souvenir                            |\n");
-				printf("|______________________________________________________________________|\n");
-				daftar_souvenir();
-				break;
-			case '2':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                             Cari Souvenir                            |\n");
-				printf("|______________________________________________________________________|\n");
-				cari();
-				break;
-			case '3':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                            	 Pembelian                             |\n");
-				printf("|______________________________________________________________________|\n");
-				pembelian();
-				break;
-			case '4':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                            Tambah Souvenir                           |\n");
-				printf("|______________________________________________________________________|\n");
-				tambah_souvenir();
-				break;
-			case '5':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                            Daftar Pembelian                           |\n");
-				printf("|______________________________________________________________________|\n");
-				//pembelian();
-				break;
-			case '6':
-				system("cls");
-				printf("________________________________________________________________________\n");
-				printf("|                                 Update                               |\n");
-				printf("|______________________________________________________________________|\n");
-				//update_stock();
-				break;
-			case '7':
-				system("pause");
-      			exit(0);
-				break;
-			default:
-				printf("~Pilihan yang anda masukkan salah~\n");
-		}
-        printf("Kembali ke menu ? (y/t) :"); 
-        scanf("%c",&ulangi); fflush(stdin);
-        system("cls");
-    }   while(ulangi == 'y');
-            break;
+		            system("cls");
+                    printf("===================================================================\n");
+                    printf("===========================SOUVENIR SHOP===========================\n");
+                    printf("===================================================================\n");
+                    printf("~MENU~ \t: \n");
+		            printf("1. Daftar Souvenir \n2. Cari Souvenir \n3. Pembelian \n4. Tambah Souvenir (Admin) \n5. Daftar Pembelian (Admin) \n6. Update (Admin) \n7. Keluar \n");
+		            printf("Masukkan Pilihan :");
+		            scanf("%c", &pilihan); fflush(stdin);
+		            system("cls");
+                    switch (pilihan){
+			            case '1':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                           Daftar Souvenir                            |\n");
+				        printf("|______________________________________________________________________|\n");
+				        daftar_souvenir();
+				        break;
+			        case '2':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                             Cari Souvenir                            |\n");
+				        printf("|______________________________________________________________________|\n");
+				        cari();
+				        break;
+			        case '3':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                            	 Pembelian                             |\n");
+				        printf("|______________________________________________________________________|\n");
+				        pembelian();
+				        break;
+			        case '4':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                            Tambah Souvenir                           |\n");
+				        printf("|______________________________________________________________________|\n");
+				        tambah_souvenir();
+				        break;
+			        case '5':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                            Daftar Pembelian                           |\n");
+				        printf("|______________________________________________________________________|\n");
+				        //pembelian();
+				        break;
+			        case '6':
+				        system("cls");
+				        printf("________________________________________________________________________\n");
+				        printf("|                                 Update                               |\n");
+				        printf("|______________________________________________________________________|\n");
+				        //update_stock();
+				        break;
+			        case '7':
+				        system("pause");
+      			        exit(0);
+				        break;
+			        default:
+				        printf("~Pilihan yang anda masukkan salah~\n");
+		            }
+                printf("Kembali ke menu ? (y/t) :"); 
+                scanf("%c",&ulangi); fflush(stdin);
+                system("cls");
+            }while(ulangi == 'y');
+                break;
             case 5:
                 fp = fopen("parkir.txt", "r");
                 if(fp == NULL){
