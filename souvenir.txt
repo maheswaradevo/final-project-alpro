@@ -1,3 +1,6 @@
-Boneka_1_9_50000
-Gantungan Kunci_2_9_15000
-Case Handphone_3_5_30000
+Boneka_1_8_50000
+Gantungan-Kunci_2_9_15000
+Case-Handphone_3_9_30000
+Baju-Kaos_4_19_75000
+Topi_5_15_50000
+Gelang_6_40_15000
