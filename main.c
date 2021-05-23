@@ -287,6 +287,7 @@ int main()
     char pilihan;
     char ulangi = 'y';
     while(1){
+        system("cls");
         printf("\n1. MASUKKAN IDENTITAS ANDA\n");
         printf("2. REKOMENDASI PERMAINAN\n");
         printf("4. SOUVENIR\n");
@@ -303,6 +304,7 @@ int main()
                 game();
             break;
             case 4:
+                fflush(stdin);
                 do{
                     system("cls");
                     printf("===================================================================\n");
@@ -350,8 +352,7 @@ int main()
                             update_stock();
                             break;
                         case '6':
-                            system("pause");
-                            exit(0);
+                            main();
                             break;
                         default:
                             printf("~Pilihan yang anda masukkan salah~\n");
