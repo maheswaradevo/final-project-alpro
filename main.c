@@ -170,6 +170,9 @@ void cari(){
             printf("Harga Produk \t\t: %i\n", Produk.harga);
         }
     }
+    if(strcmp(cari, Produk.nama)!=0){
+        printf("Souvenir tersebut belum tersedia\n");
+    }
     fclose(SOUVENIR);
 }
 
