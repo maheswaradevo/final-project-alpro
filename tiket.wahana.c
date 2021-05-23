@@ -19,7 +19,7 @@ int main(){
   tiket data[50];
   int i, pilihan, exit, awal;
   int j;
-  int pil1,pil2,pil3,pil4,pil5,pil6,pil7,pil8;
+  int pil1,pil2=0,pil3,pil4,pil5,pil6,pil7,pil8;
   int tarif;
   char konfirmasi[2];
   awal :
@@ -52,6 +52,22 @@ switch(pilihan){
     if (pil1==1){
       if(data[j].usia>=18 || strcmp(data[j].penyakit, "asma") == 1 || strcmp(data[j].penyakit, "jantung") == 1 || data[j].tinggi>=140 ){
          printf("Wahana selain rolloer coaster bisa anda naiki");} 
+
+      else if(data[j].usia>=14 || strcmp(data[j].penyakit, "hipertensi") == 1 || strcmp(data[j].penyakit, "jantung") == 1 ){
+         printf("wahana biang lala bisa anda naiki");}
+
+      else if(data[j].usia>=16 || strcmp(data[j].penyakit, "jantung") == 1 || data[j].tinggi>= 150 || strcmp(data[j].penyakit, "hipertensi" ) == 1 ){
+         printf("wahana sky swinger bisa anda naiki");}
+
+      else if(data[j].usia>=10 || strcmp(data[j].penyakit, "jantung") == 1 ){
+         printf("wahana bom bom car bisa anda naiki");}
+
+      else if(data[j].usia>=10 || strcmp(data[j].penyakit, "jantung") == 1 ){
+         printf("wahana rumah hantu bisa anda naiki");}
+
+      else if(data[j].usia>=10 || strcmp(data[j].penyakit, "jantung") == 1 || strcmp(data[j].penyakit, "anemia") == 1 || data[j].tinggi>=130){
+         printf("wahana ACCELERATOR bisa anda naiki");
+       }
     }
     else if (pil1==2){
      system ("cls");
