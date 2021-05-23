@@ -55,7 +55,7 @@ switch(pilihan){
      system ("cls");
 
      printf("=========wahana pada taman hiburan===========\n");
-     printf("====silahkan pilih wahana susai keinginan====\n");
+     printf("====silahkan pilih wahana sesuai keinginan====\n");
      printf("                  1.roller coaster\n");
      printf("                  2.Biang Lala\n");
      printf("                  3.Sky Swinger\n");
