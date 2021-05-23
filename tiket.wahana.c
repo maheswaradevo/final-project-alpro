@@ -50,12 +50,10 @@ switch(pilihan){
     printf(" masukkan pilihan anda :");
     scanf("%d", &pil1);
     if (pil1==1){
-      if(data[j].usia<18 || strcmp(data[j].penyakit, "asma") == 0 || strcmp(data[j].penyakit, "jantung") == 0 || data[j].tinggi<140 ){
-         printf("wahana tidak sesuai dengan kriteria anda");
-         {
-           
-         }
-    } else if (pil1==2){
+      if(data[j].usia>=18 || strcmp(data[j].penyakit, "asma") == 1 || strcmp(data[j].penyakit, "jantung") == 1 || data[j].tinggi>=140 ){
+         printf("Wahana selain rolloer coaster bisa anda naiki");} 
+    }
+    else if (pil1==2){
      system ("cls");
 
      printf("=========wahana pada taman hiburan===========\n");
@@ -274,7 +272,7 @@ switch(pilihan){
          }
 
 return 0;
-
 }
+
 
 
