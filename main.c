@@ -3,10 +3,14 @@
 #include <string.h>
 #include <time.h>
 
-char name[50][50];
-int umur;
-char penyakit[50][50];
-int tb;
+typedef struct data
+{
+    char nama[50], alamat[50], penyakit[50];
+    int usia, tb;
+    int harga, saldo;
+} data;
+data identitas[20];
+
 typedef struct
 {
     char type[20];
@@ -42,20 +46,18 @@ int ageCount(int tgl_lahir, int bln_lahir, int thn_lahir)
     }
     int tgl_final = tgl_skrg - tgl_lahir;
     int bln_final = bln_skrg - bln_lahir;
-    umur = thn_skrg - thn_lahir;
-    return 0;
+    int umur = thn_skrg - thn_lahir;
+    return umur;
 }
 void identity()
 {
-    char name[50][50];
     int choice, tgl, bln, thn, n, i;
-    char penyakit[50][50];
     int j = 0;
     printf("MASUKKAN NAMA ANDA : ");
-    scanf("%[^\n]s", &name);
+    scanf("%[^\n]s", &identitas[j].nama);
     printf("MASUKKAN TANGGAL LAHIR ANDA : ");
     scanf("%d %d %d", &tgl, &bln, &thn);
-    ageCount(tgl, bln, thn);
+    identitas[j].usia = ageCount(tgl, bln, thn);
     fflush(stdin);
     printf("APAKAH MEMILIKI RIWAYAT PENYAKIT? (Y/N) : ");
     scanf("%s", &choice);
@@ -70,44 +72,17 @@ void identity()
         {
             printf("-");
             fflush(stdin);
-            scanf("%[^\n]s", &penyakit);
+            scanf("%[^\n]s", &identitas[j].penyakit);
         }
         printf("TINGGI BADAN ANDA (CM) : ");
-        scanf("%d", &tb);
+        scanf("%d", &identitas[j].tb);
         break;
     case 'N':
         printf("TINGGI BADAN ANDA (CM) : ");
-        scanf("%d", &tb);
+        scanf("%d", &identitas[j].tb);
         break;
     }
-}
-void game()
-{
-    if ((umur >= 17) && (tb > 170))
-    {
-        printf("ANDA DAPAT MEMAINKAN PERMAINAN DIBAWAH INI : \n");
-        printf("1. ROLLER COASTER\n");
-        printf("2. BIANG LALA\n");
-        printf("3. SKY SWINGER\n");
-        printf("4. BOM-BOM CAR\n");
-        printf("5. RUMAH HANTU\n");
-        printf("6. ACCELERATOR\n");
-    }
-    else if ((umur >= 12) && (umur < 17) && (tb <= 170) && (tb > 160))
-    {
-        printf("1. BOM-BOM CAR\n");
-        printf("2. RUMAH HANTU\n");
-        printf("3. ACCELERATOR\n");
-        printf("4. ROLLER COASTER MINI\n");
-    }
-    else if ((umur < 12) && (tb <= 160))
-    {
-        printf("UNTUK ANAK UMUR DIBAWAH 11 TAHUN\n");
-        printf("DIMOHON DIDAMPINGIN ORANG TUA\n");
-        printf("1. SAFARI CAR\n");
-        printf("2. KOMEDI PUTAR\n");
-        printf("3. ROLLER COASTER MINI\n");
-    }
+    j++;
 }
 
 int costCountA(int mobil, int jam)
@@ -328,22 +303,26 @@ void update_stock()
 
 int main()
 {
-    int i, choice;
-    int result;
+    data tiket[20];
     element data[50];
+    int i, j, choice, ch, exit, awal;
+    int result;
     FILE *fp;
     int jam, mnt, dtk;
     char name[50];
     char pilihan;
     char ulangi = 'y';
+    int pil1, pil2 = 0, pil3, pil4, pil5, pil6, pil7, pil8;
+    int tarif;
+    int counter = 0;
+    char konfirmasi[2];
     while (1)
     {
-        system("cls");
         printf("\n1. MASUKKAN IDENTITAS ANDA\n");
-        printf("2. REKOMENDASI PERMAINAN\n");
-        printf("4. SOUVENIR\n");
-        printf("5. HITUNG PARKIR\n");
-        printf("6. Exit\n");
+        printf("2. TIKET\n");
+        printf("3. SOUVENIR\n");
+        printf("4. HITUNG PARKIR\n");
+        printf("5. Exit\n");
         printf("MASUKKAN PILIHAN : ");
         scanf("%d", &choice);
         switch (choice)
@@ -351,11 +330,516 @@ int main()
         case 1:
             fflush(stdin);
             identity();
+            counter++;
+            for (j = 0; j <= counter; j++)
+            {
+                tiket[j].usia = identitas[j].usia;
+                tiket[j].tb = identitas[j].tb;
+                strcpy(tiket[j].penyakit, identitas[j].penyakit);
+            }
             break;
         case 2:
-            game();
+        awal:
+            system("cls");
+            printf("========================\n");
+            printf("SELAMAT DATANG DI WAHANA\n");
+            printf("========================\n");
+            printf("    SILAHKAN PILIH MENU\n");
+            printf("    1.ISI SALDO\n");
+            printf("    2.PILIH WAHANA\n");
+            printf("    3.EXIT\n");
+            printf("MASUKKAN PILIHAN ANDA : ");
+            scanf("%d", &ch);
+
+            switch (ch)
+            {
+            case 1:
+                break;
+
+            case 2:
+                system("cls");
+                printf("==============================================\n");
+                printf("=================MENU WAHANA==================\n");
+                printf("==============================================\n");
+                printf("APAKAH ANDA INGIN MELIHAT REKOMENDASI WAHANA? \n");
+                printf("                   1.IYA                     \n");
+                printf("                   2.TIDAK                   \n");
+                printf("==============================================\n");
+                printf(" MASUKKAN PILIHAN ANDA :");
+                scanf("%d", &pil1);
+                if (pil1 == 1)
+                {
+                    if (tiket[j].usia >= 18 || strcmp(tiket[j].penyakit, "asma") == 1 || strcmp(tiket[j].penyakit, "jantung") == 1 || tiket[j].tb >= 140)
+                    {
+                        printf("WAHANA SELAIN ROLLLER COASTER BISA ANDA NAIKI\n");
+                        printf("APAKAH ANDA INGIN MENAIKI WAHANA INI? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN ANDA :");
+                        scanf("%d", &pil3);
+                        if (pil3 == 1)
+                        {
+                            tarif = 10000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO ANDA SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil3 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+
+                    else if (tiket[j].usia >= 14 || strcmp(tiket[j].penyakit, "hipertensi") == 1 || strcmp(tiket[j].penyakit, "jantung") == 1)
+                    {
+                        printf("WAHANA BIANG LALA BISA ANDA NAIKI\n");
+                        printf("APAKAH ANDA INGIN BERMAIN DI WAHANA BIANG LALA? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN ANDA :");
+                        scanf("%d", &pil4);
+                        if (pil4 == 1)
+                        {
+                            tarif = 8000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO ANDA SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil4 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+
+                    else if (tiket[j].usia >= 16 || strcmp(tiket[j].penyakit, "jantung") == 1 || tiket[j].tb >= 150 || strcmp(tiket[j].penyakit, "hipertensi") == 1)
+                    {
+                        printf("WAHANA SKY SWINGER DAPAT ANDA NAIKI\n");
+                        printf("APAKAH ANDA INGIN BERMAIN DI WAHANA SKY SWINGER? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIAN :");
+                        scanf("%d", &pil5);
+                        if (pil5 == 1)
+                        {
+                            tarif = 5000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO ANDA SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil5 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+
+                    else if (tiket[j].usia >= 10 || strcmp(tiket[j].penyakit, "jantung") == 1)
+                    {
+                        printf("WAHANA BOM-BOM CAR DAPAT ANDA NAIKI\n");
+                        printf("APAKAH ANDA INGIN BERMAIN DI WAHANA BOM-BOM CAR? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                        scanf("%d", &pil6);
+                        if (pil6 == 1)
+                        {
+                            tarif = 4000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO ANDA SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil6 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+
+                    else if (tiket[j].usia >= 10 || strcmp(tiket[j].penyakit, "jantung") == 1)
+                    {
+                        printf("WAHANA RUMAH HANTU DAPAT ANDA MASUKI\n");
+                        printf("APAKAH ANDA INGIN BERMAIN DI WAHANA RUMAH HANTU? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                        scanf("%d", &pil7);
+                        if (pil7 == 1)
+                        {
+                            tarif = 7000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil7 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+
+                    else if (tiket[j].usia >= 10 || strcmp(tiket[j].penyakit, "jantung") == 1 || strcmp(tiket[j].penyakit, "anemia") == 1 || tiket[j].tb >= 130)
+                    {
+                        printf("WAHANA ACCELERATOR DAPAT ANDA NAIKI\n");
+                        printf("APAKAH ANDA INGIN BERMAIN DI WAHANA ACCELERATOR? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                        scanf("%d", &pil8);
+                        if (pil8 == 1)
+                        {
+                            tarif = 10000;
+                            if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                            {
+                                tiket[j].saldo = tiket[j].saldo - tarif;
+                                printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                printf("\nSALDO ANDA SAAT INI Rp.%d\n", tiket[j].saldo);
+                            }
+                            else
+                            {
+                                printf("SALDO TIDAK CUKUP\n");
+                            }
+                        }
+                        else if (pil8 == 2)
+                        {
+                            printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                        }
+                        else
+                        {
+                            printf("INPUTAN SALAH\n");
+                        }
+                        goto konfirmasi;
+                    }
+                }
+                else if (pil1 == 2)
+                {
+                    system("cls");
+
+                    printf("==============WAHANA PADA TAMAN HIBURAN=============\n");
+                    printf("=======SILAHKAN PILIH WAHANA SESUAI KEINGINAN=======\n");
+                    printf("                  1.Roller Coaster\n");
+                    printf("                  2.Biang Lala\n");
+                    printf("                  3.Sky Swinger\n");
+                    printf("                  4.Bom - Bom Car\n");
+                    printf("                  5.Rumah Hantu\n");
+                    printf("                  6.Accelerator\n");
+                    printf("=============================================\n");
+                    printf("                  1.Roller Coaster  | tarif Rp.10000\n");
+                    printf("                  2.Biang Lala      | tarif Rp.8000\n");
+                    printf("                  3.Sky Swinger     | tarif Rp.5000\n");
+                    printf("                  4.Bom - Bom Car   | tarif Rp.4000\n");
+                    printf("                  5.Rumah Hantu     | tarif Rp.7000\n");
+                    printf("                  6.Accelerator     | tarif Rp.10000\n");
+                    printf("SILAHKAN MASUKKAN PILIHAN ANDA :");
+                    scanf("%d", &pil2);
+                    switch (pil2)
+                    {
+                    case 1:
+                        if (tiket[j].usia < 18 || strcmp(tiket[j].penyakit, "asma") == 0 || strcmp(tiket[j].penyakit, "jantung") == 0 || tiket[j].tb < 140)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN MENAIKI WAHANA ROLLER COASTER? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil3);
+                            if (pil3 == 1)
+                            {
+                                tarif = 10000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil3 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    case 2:
+                        if (tiket[j].usia < 14 || strcmp(tiket[j].penyakit, "hipertensi") == 0 || strcmp(tiket[j].penyakit, "jantung") == 0)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN BERMAIN DI WAHANA BIANG LALA? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil4);
+                            if (pil4 == 1)
+                            {
+                                tarif = 8000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil4 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    case 3:
+                        if (tiket[j].usia < 16 || strcmp(tiket[j].penyakit, "jantung") == 0 || tiket[j].tb < 150 || strcmp(tiket[j].penyakit, "hipertensi") == 0)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN BERMAIN DI WAHANA SKY SWINGER? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil5);
+                            if (pil5 == 1)
+                            {
+                                tarif = 5000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil5 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    case 4:
+                        if (tiket[j].usia < 10 || strcmp(tiket[j].penyakit, "jantung") == 0)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN BERMAIN DI WAHANA BOM-BOM CAR? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil6);
+                            if (pil6 == 1)
+                            {
+                                tarif = 4000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil6 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    case 5:
+                        if (tiket[j].usia < 10 || strcmp(tiket[j].penyakit, "jantung") == 0)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN BERMAIN DI WAHANA RUMAH HANTU? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil7);
+                            if (pil7 == 1)
+                            {
+                                tarif = 7000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil7 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    case 6:
+                        if (tiket[j].usia < 10 || strcmp(tiket[j].penyakit, "jantung") == 0 || strcmp(tiket[j].penyakit, "anemia") == 0 || tiket[j].tb < 130)
+                        {
+                            printf("WAHANA TIDAK SESUAI DENGAN KRITERIA ANDA\n");
+                        }
+                        else
+                        {
+                            printf("=============================\n");
+                            printf(" WAHANA INI COCOK UNTUK ANDA \n");
+                            printf("=============================\n");
+                            printf("APAKAH ANDA INGIN BERMAIN DI WAHANA ACCELERATOR? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN :");
+                            scanf("%d", &pil8);
+                            if (pil8 == 1)
+                            {
+                                tarif = 10000;
+                                if (tiket[j].saldo > tarif || tiket[j].saldo == tarif)
+                                {
+                                    tiket[j].saldo = tiket[j].saldo - tarif;
+                                    printf("\n===SILAHKAN BERMAIN DI WAHANA INI===\n");
+                                    printf("\nSALDO SAAT INI Rp.%d\n", tiket[j].saldo);
+                                }
+                                else
+                                {
+                                    printf("SALDO TIDAK CUKUP\n");
+                                }
+                            }
+                            else if (pil8 == 2)
+                            {
+                                printf("PEMILIHAN WAHANA DIBATALKAN\n");
+                            }
+                            else
+                            {
+                                printf("INPUTAN SALAH\n");
+                            }
+                            goto konfirmasi;
+                        }
+                        break;
+                    default:
+                        printf("PILIHAN ANDA SALAH\n");
+                    }
+                }
+                else
+                {
+                    printf("PILIHAN SALAH\n");
+                }
+                break;
+
+            case 3:
+                goto exit;
+                break;
+            default:
+                printf("PILIHAN ANDA SALAH\n");
+            }
+        konfirmasi:
+
+            printf("\nApakah anda ingin  kembali ke menu ? Y/T : ");
+
+            scanf("%s", &konfirmasi);
+
+            if (strcmp(konfirmasi, "Y") == 0 || strcmp(konfirmasi, "y") == 0)
+            {
+
+                goto awal;
+            }
+            else if (strcmp(konfirmasi, "T") == 0 || strcmp(konfirmasi, "t") == 0)
+            {
+
+                goto exit;
+            exit:
+                system("cls");
+                printf("================================");
+                printf("\n       Terimakasih ");
+                printf("\n================================\n");
+            }
+            else
+            {
+
+                printf("\nPilihan salah");
+
+                goto konfirmasi;
+            }
             break;
-        case 4:
+        case 3:
             fflush(stdin);
             do
             {
@@ -407,7 +891,7 @@ int main()
                     update_stock();
                     break;
                 case '6':
-                    delete_stock();
+                    // delete_stock();
                     break;
                 case '7':
                     main();
@@ -421,7 +905,7 @@ int main()
                 system("cls");
             } while (ulangi == 'y');
             break;
-        case 5:
+        case 4:
             fp = fopen("parkir.txt", "r");
             if (fp == NULL)
             {
@@ -456,7 +940,6 @@ int main()
             }
             break;
         case 6:
-            exit(1);
             break;
         }
     }
