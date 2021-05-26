@@ -300,12 +300,14 @@ void update_stock()
         printf("Kode yang anda masukkan salah!!!");
     fclose(SOUVENIR);
 }
+void title();
+void nama();
 
 int main()
 {
     data tiket[20];
     element data[50];
-    int i, j, choice, ch, exit, awal;
+    int i, j, choice, ch, keluar, awal;
     int result;
     FILE *fp;
     int jam, mnt, dtk;
@@ -316,12 +318,14 @@ int main()
     int tarif;
     int counter = 0;
     char konfirmasi[2];
+    title();
+    nama();
     while (1)
     {
         printf("\n1. MASUKKAN IDENTITAS ANDA\n");
         printf("2. TIKET\n");
         printf("3. SOUVENIR\n");
-        printf("4. HITUNG PARKIR\n");
+        printf("4. HITUNG PARKIR (ADMIN)\n");
         printf("5. Exit\n");
         printf("MASUKKAN PILIHAN : ");
         scanf("%d", &choice);
@@ -371,7 +375,7 @@ int main()
                 {
                     if (tiket[j].usia >= 18 || strcmp(tiket[j].penyakit, "asma") == 1 || strcmp(tiket[j].penyakit, "jantung") == 1 || tiket[j].tb >= 140)
                     {
-                        printf("WAHANA SELAIN ROLLLER COASTER BISA ANDA NAIKI\n");
+                        printf("WAHANA ROLLLER COASTER BISA ANDA NAIKI\n");
                         printf("APAKAH ANDA INGIN MENAIKI WAHANA INI? \n\t1.IYA\n\t2.TIDAK\nMASUKKAN PILIHAN ANDA :");
                         scanf("%d", &pil3);
                         if (pil3 == 1)
@@ -805,7 +809,7 @@ int main()
                 break;
 
             case 3:
-                goto exit;
+                goto keluar;
                 break;
             default:
                 printf("PILIHAN ANDA SALAH\n");
@@ -824,8 +828,8 @@ int main()
             else if (strcmp(konfirmasi, "T") == 0 || strcmp(konfirmasi, "t") == 0)
             {
 
-                goto exit;
-            exit:
+                goto keluar;
+            keluar:
                 system("cls");
                 printf("================================");
                 printf("\n       Terimakasih ");
@@ -939,9 +943,30 @@ int main()
                 break;
             }
             break;
-        case 6:
+        case 5:
+            exit(1);
             break;
         }
+        return 0;
     }
-    return 0;
+}
+
+void title()
+{
+    printf("\t +----------------------------------------------------------------------------------------+\n");
+    printf("\t |                         FINAL PROJECT ALGORITMA PEMROGRAMAN                            |\n");
+    printf("\t |                                  PLAYGROUND SYSTEM                                     |\n");
+    printf("\t +----------------------------------------------------------------------------------------+\n");
+}
+
+void nama()
+{
+    printf("\t |OLEH: PANDE PUTU DEVO PUNDA MAHESWARA                                        2008561107 |\n");
+    printf("\t |      I PUTU DUTA AWIDYA SARTANA PUTRA                                       2008561090 |\n");
+    printf("\t |      I WAYAN AGUS JUNIARTHA                                                 2008561095 |\n");
+    printf("\t |      I DEWA GDE PUTRA ANGA BIARA                                            2008561105 |\n");
+    printf("\t |      I NYOMAN BUDHIARTA SUPUTRA                                             2008561110 |\n");
+    printf("\t |      IDA BAGUS MADE SURYA WIDNYANA                                          2008561092 |\n");
+    printf("\t +----------------------------------------------------------------------------------------+\n");
+    printf("\n");
 }
