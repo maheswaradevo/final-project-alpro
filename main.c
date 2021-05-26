@@ -30,6 +30,7 @@ FILE *PEMBELIAN;
 
 int ageCount(int tgl_lahir, int bln_lahir, int thn_lahir)
 {
+    int j = 0;
     int bulan[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int tgl_skrg = 5;
     int bln_skrg = 5;
@@ -46,18 +47,20 @@ int ageCount(int tgl_lahir, int bln_lahir, int thn_lahir)
     }
     int tgl_final = tgl_skrg - tgl_lahir;
     int bln_final = bln_skrg - bln_lahir;
-    int umur = thn_skrg - thn_lahir;
-    return umur;
+    identitas[j].usia = thn_skrg - thn_lahir;
+    j++;
+    return 0;
 }
 void identity()
 {
     int choice, tgl, bln, thn, n, i;
     int j = 0;
     printf("MASUKKAN NAMA ANDA : ");
+    fflush(stdin);
     scanf("%[^\n]s", &identitas[j].nama);
     printf("MASUKKAN TANGGAL LAHIR ANDA : ");
     scanf("%d %d %d", &tgl, &bln, &thn);
-    identitas[j].usia = ageCount(tgl, bln, thn);
+    ageCount(tgl, bln, thn);
     fflush(stdin);
     printf("APAKAH MEMILIKI RIWAYAT PENYAKIT? (Y/N) : ");
     scanf("%s", &choice);
@@ -104,42 +107,41 @@ void tambah_souvenir()
     Souvenir Produk;
     SOUVENIR = fopen("souvenir.txt", "a+");
     int code;
-    printf("Untuk melakukan operasi ini anda harus memasukkan kode admin!\n");
-    printf("Masukkan kode disini : ");
+    printf("UNTUK MELAKUKAN OPERASI INI ANDA HARUS MEMASUKKAN KODE ADMIN!\n");
+    printf("MASUKKAN KODE DISINI : ");
     scanf("%i", &code);
     fflush(stdin);
     if (code == 61105)
     {
-        printf("Nama Produk \t\t: ");
+        printf("NAMA PRODUK \t\t: ");
         scanf("%[^\n]", &Produk.nama);
         fflush(stdin);
-        printf("No Produk \t\t: ");
+        printf("NO PRODUK \t\t: ");
         scanf("%i", &Produk.no);
         fflush(stdin);
-        printf("Jumlah Produk \t\t: ");
+        printf("JUMLAH PRODUK \t\t: ");
         scanf("%i", &Produk.jmlh);
         fflush(stdin);
-        printf("Harga Produk \t\t: ");
+        printf("HARGA PRODUK \t\t: ");
         scanf("%i", &Produk.harga);
         fflush(stdin);
 
         fprintf(SOUVENIR, "%s_%i_%i_%i\n", Produk.nama, Produk.no, Produk.jmlh, Produk.harga);
-        printf("Selamat! Produk sudah berhasil ditambahkan.\n");
+        printf("SELAMAT! PRODUK SUDAH BERHASIL DITAMBAHKAN\n");
     }
     else
-        printf("Kode yang anda masukkan salah!!!");
+        printf("KODE YANG ANDA MASUKKAN SALAH!!!");
     fclose(SOUVENIR);
 }
-
 void daftar_souvenir()
 {
     Souvenir Produk;
     SOUVENIR = fopen("souvenir.txt", "r");
-    printf("======================================================================================\n");
-    printf("No \t");
-    printf("Nama \t\t\t\t");
-    printf("Jumlah \t");
-    printf("Harga ");
+    printf("========================================================================================\n");
+    printf("NO \t");
+    printf("NAMA \t\t\t\t");
+    printf("JUMLAH \t");
+    printf("HARGA ");
     printf("\n======================================================================================\n");
     while (!feof(SOUVENIR))
     {
@@ -152,13 +154,12 @@ void daftar_souvenir()
     }
     fclose(SOUVENIR);
 }
-
 void cari()
 {
     char cari[50];
     Souvenir Produk;
     SOUVENIR = fopen("souvenir.txt", "r");
-    printf("Masukan Nama Produk yang ingin dicari \t: ");
+    printf("MASUKKAN PRODUK YANG INGIN DICARI \t: ");
     scanf("%s", &cari);
     fflush(stdin);
     while (!feof(SOUVENIR))
@@ -167,15 +168,15 @@ void cari()
         fflush(stdin);
         if (strcmp(cari, Produk.nama) == 0)
         {
-            printf("Nama Produk \t\t: %s\n", Produk.nama);
-            printf("No Produk \t\t: %i\n", Produk.no);
-            printf("Jumlah Produk \t\t: %i\n", Produk.jmlh);
-            printf("Harga Produk \t\t: %i\n", Produk.harga);
+            printf("NAMA PRODUK \t\t: %s\n", Produk.nama);
+            printf("NO PRODUK \t\t: %i\n", Produk.no);
+            printf("JUMLAH PRODUK \t\t: %i\n", Produk.jmlh);
+            printf("HARGA PRODUK \t\t: %i\n", Produk.harga);
         }
     }
     if (strcmp(cari, Produk.nama) != 0)
     {
-        printf("Souvenir tersebut belum tersedia\n");
+        printf("SOUVENIR TERSEBUT BELUM TERSEDIA\n");
     }
     fclose(SOUVENIR);
 }
@@ -191,11 +192,11 @@ void pembelian()
     index = 0;
     daftar_souvenir();
     SOUVENIR = fopen("souvenir.txt", "r+");
-    printf("\t===Pilih produk yang akan anda beli===\n");
-    printf("Masukkan nomor produk : ");
+    printf("\t===PILIH PRODUK YANG INGIN ANDA BELI===\n");
+    printf("MASUKKAN NOMOR PRODUK : ");
     scanf("%i", &nomor);
     fflush(stdin);
-    printf("Masukkan nominal uang yang anda berikan : ");
+    printf("MASUKKAN NOMINAL UANG YANG DIBERIKAN : ");
     scanf("%i", &uang);
     while (!feof(SOUVENIR))
     {
@@ -208,19 +209,19 @@ void pembelian()
                 kembalian = uang - Produk[index].harga;
                 if (Produk[index].jmlh >= 1)
                 {
-                    printf("======================Souvenir Berhasil Dibeli===============\n");
+                    printf("======================SOUVENIR BERHASIL DIBELI===============\n");
                     Produk[index].jmlh -= 1;
                     PEMBELIAN = fopen("pembelian.txt", "a");
                     fprintf(PEMBELIAN, "%s_%i_%i_%i\n", Produk[index].nama, Produk[index].no, 1, Produk[index].harga);
                     fclose(PEMBELIAN);
-                    printf("Anda ingin mencetak struk?(y/n)");
+                    printf("ANDA INGIN MENCETAK STRUK?(Y/N)");
                     scanf("%c", &c);
                     if (c == 'y' || c == 'Y')
                     {
                         system("cls");
                         PEMBELIAN = fopen("pembelian.txt", "r");
                         printf("Tanggal pembelian : %s", ctime(&now));
-                        printf("======================Struk Bukti Pembelian===============\n");
+                        printf("======================STRUK BUKTI PEMBELIAN===============\n");
                         printf("Nama Produk \t\t: %s\n", Produk[index].nama);
                         printf("No Produk \t\t: %i\n", Produk[index].no);
                         printf("Jumlah Produk \t\t: %i\n", 1);
@@ -233,10 +234,10 @@ void pembelian()
                     }
                 }
                 else
-                    printf("======================Souvenir Tidak Berhasil Dibeli===============\n");
+                    printf("======================SOUVENIR TIDAK BERHASIL DIBELI===============\n");
             }
             else
-                printf("Uang anda kurang untuk membeli produk ini!!!");
+                printf("UANG ANDA KURANG UNTUK MEMBELI PRODUK INI!!!\n");
         }
         index++;
     }
@@ -258,15 +259,15 @@ void update_stock()
     int index, i, jmlh;
     index = 0;
     int code;
-    printf("Untuk melakukan operasi ini anda harus memasukkan kode admin!\n");
-    printf("Masukkan kode disini : ");
+    printf("UNTUK MELAKUKAN OPERASI INI ANDA HARUS MEMASUKKAN KODE ADMIN\n");
+    printf("MASUKKAN KODE DISINI : ");
     scanf("%i", &code);
     fflush(stdin);
     if (code == 61105)
     {
         daftar_souvenir();
         SOUVENIR = fopen("souvenir.txt", "r+");
-        printf("Masukan Nama Produk yang ingin di update \t: ");
+        printf("MASUKKAN NAMA PRODUK YANG INGIN ANDA UPDATE \t: ");
         scanf("%s", &cari);
         fflush(stdin);
         while (!feof(SOUVENIR))
@@ -279,11 +280,11 @@ void update_stock()
                 printf("No Produk \t\t: %i\n", Produk[index].no);
                 printf("Jumlah Produk \t\t: %i\n", Produk[index].jmlh);
                 printf("Harga Produk \t\t: %i\n\n", Produk[index].harga);
-                printf("Masukkan jumlah barang yang akan di uptade : ");
+                printf("MASUKKAN JUMLAH PRODUK YANG INGIN ANDA UBAH : ");
                 scanf("%i", &jmlh);
                 printf("Tunggu Sebentar...\n");
                 Produk[index].jmlh = jmlh;
-                printf("Selamat! Produk sudah berhasil di update.\n");
+                printf("SELAMAT! PRODUK SUDAH BERHASIL DIUBAH.\n");
             }
             index++;
         }
@@ -297,7 +298,7 @@ void update_stock()
         }
     }
     else
-        printf("Kode yang anda masukkan salah!!!");
+        printf("KODE YANG ANDA MASUKKAN SALAH!!!");
     fclose(SOUVENIR);
 }
 void title();
@@ -307,7 +308,7 @@ int main()
 {
     data tiket[20];
     element data[50];
-    int i, j, choice, ch, keluar, awal;
+    int i, j, choice, ch, keluar, awal, menu;
     int result;
     FILE *fp;
     int jam, mnt, dtk;
@@ -318,6 +319,7 @@ int main()
     int tarif;
     int counter = 0;
     char konfirmasi[2];
+    int admin;
     title();
     nama();
     while (1)
@@ -332,15 +334,10 @@ int main()
         switch (choice)
         {
         case 1:
-            fflush(stdin);
             identity();
-            counter++;
-            for (j = 0; j <= counter; j++)
-            {
-                tiket[j].usia = identitas[j].usia;
-                tiket[j].tb = identitas[j].tb;
-                strcpy(tiket[j].penyakit, identitas[j].penyakit);
-            }
+            tiket[counter].usia = identitas[counter].usia;
+            tiket[counter].tb = identitas[counter].tb;
+            strcpy(tiket[counter].penyakit, identitas[counter].penyakit);
             break;
         case 2:
         awal:
@@ -354,7 +351,6 @@ int main()
             printf("    3.EXIT\n");
             printf("MASUKKAN PILIHAN ANDA : ");
             scanf("%d", &ch);
-
             switch (ch)
             {
             case 1:
@@ -851,8 +847,8 @@ int main()
                 printf("===================================================================\n");
                 printf("===========================SOUVENIR SHOP===========================\n");
                 printf("===================================================================\n");
-                printf("~MENU~ \t: \n");
-                printf("1. Daftar Souvenir \n2. Cari Souvenir \n3. Pembelian \n4. Tambah Souvenir (Admin) \n5. Update (Admin) \n6. Delete (Admin) \n7. Keluar \n");
+                printf("MENU \t: \n");
+                printf("1. DAFTAR SOUVENIR \n2. CARI SOUVENIR \n3. PEMBELIAN \n4. TAMBAH SOUVENIR (ADMIN) \n5. UPDATE (ADMIN) \n6. DELETE (ADMIN) \n7. KELUAR \n");
                 printf("Masukkan Pilihan : ");
                 scanf("%c", &pilihan);
                 fflush(stdin);
@@ -862,35 +858,35 @@ int main()
                 case '1':
                     system("cls");
                     printf("________________________________________________________________________\n");
-                    printf("|                           Daftar Souvenir                            |\n");
+                    printf("|                           DAFTAR SOUVENIR                            |\n");
                     printf("|______________________________________________________________________|\n");
                     daftar_souvenir();
                     break;
                 case '2':
                     system("cls");
                     printf("________________________________________________________________________\n");
-                    printf("|                             Cari Souvenir                            |\n");
+                    printf("|                             CARI SOUVENIR                            |\n");
                     printf("|______________________________________________________________________|\n");
                     cari();
                     break;
                 case '3':
                     system("cls");
                     printf("________________________________________________________________________\n");
-                    printf("|                            	 Pembelian                             |\n");
+                    printf("|                            	 PEMBELIAN                             |\n");
                     printf("|______________________________________________________________________|\n");
                     pembelian();
                     break;
                 case '4':
                     system("cls");
                     printf("________________________________________________________________________\n");
-                    printf("|                            Tambah Souvenir                           |\n");
+                    printf("|                            TAMBAH SOUVENIR                           |\n");
                     printf("|______________________________________________________________________|\n");
                     tambah_souvenir();
                     break;
                 case '5':
                     system("cls");
                     printf("________________________________________________________________________\n");
-                    printf("|                                 Update                               |\n");
+                    printf("|                                 UPDATE                               |\n");
                     printf("|______________________________________________________________________|\n");
                     update_stock();
                     break;
@@ -901,54 +897,70 @@ int main()
                     main();
                     break;
                 default:
-                    printf("~Pilihan yang anda masukkan salah~\n");
+                    printf("PILIHAN YANG ANDA MASUKKAN SALAH\n");
                 }
-                printf("Kembali ke menu ? (y/t) :");
+                printf("KEMBALI KE MENU? (Y/T) :");
                 scanf("%c", &ulangi);
                 fflush(stdin);
                 system("cls");
             } while (ulangi == 'y');
             break;
         case 4:
-            fp = fopen("parkir.txt", "r");
-            if (fp == NULL)
+            if (identitas[0].usia == 0)
             {
-                printf("Tidak ada file yang ditemukan!");
+                printf("HARUS ADA PELANGGAN UNTUK MENGHITUNG PARKIR\n");
             }
-            while (!feof(fp))
+            else
             {
-                fscanf(fp, "%s %d", &data[i].type, &data[i].price);
-                i++;
-            }
-            printf("PEMBAYARAN MOBIL PERJAM = %d\n", data[0].price);
-            printf("PEMBAYARAN MOTOR PERJAM = %d\n", data[1].price);
-            printf("KENDARAAN PELANGGAN : \n");
-            printf("1. MOBIL\n");
-            printf("2. MOTOR\n");
-            printf("MASUKKAN PILIHAN : ");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-            case 1:
-                printf("\nMASUKKAN BERAPA LAMA PELANGGAN BERADA DI LOKASI (H/M/S) : ");
-                scanf("%d %d %d", &jam, &mnt, &dtk);
-                printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK\n", jam, mnt, dtk);
-                costCountA(data[0].price, jam);
-                break;
-            case 2:
-                printf("\nMASUKKAN BERAPA LAMA PELANGGAN BERADA DI LOKASI (H/M/S) : ");
-                scanf("%d %d %d", &jam, &mnt, &dtk);
-                printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK", jam, mnt, dtk);
-                costCountB(data[1].price, jam);
-                break;
+                printf("UNTUK MELAKUKAN OPERASI INI ANDA HARUS MEMASUKKAN KODE ADMIN\n");
+                printf("MASUKKAN KODE DISINI : ");
+                scanf("%d", &admin);
+                if (admin == 61105)
+                {
+                    fp = fopen("parkir.txt", "r");
+                    if (fp == NULL)
+                    {
+                        printf("TIDAK ADA FILE YANG DITEMUKAN!");
+                    }
+                    while (!feof(fp))
+                    {
+                        fscanf(fp, "%s %d", &data[i].type, &data[i].price);
+                        i++;
+                    }
+                    printf("PEMBAYARAN MOBIL PERJAM = %d\n", data[0].price);
+                    printf("PEMBAYARAN MOTOR PERJAM = %d\n", data[1].price);
+                    printf("KENDARAAN PELANGGAN : \n");
+                    printf("1. MOBIL\n");
+                    printf("2. MOTOR\n");
+                    printf("MASUKKAN PILIHAN : ");
+                    scanf("%d", &choice);
+                    switch (choice)
+                    {
+                    case 1:
+                        printf("\nMASUKKAN BERAPA LAMA PELANGGAN BERADA DI LOKASI (H/M/S) : ");
+                        scanf("%d %d %d", &jam, &mnt, &dtk);
+                        printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK\n", jam, mnt, dtk);
+                        costCountA(data[0].price, jam);
+                        break;
+                    case 2:
+                        printf("\nMASUKKAN BERAPA LAMA PELANGGAN BERADA DI LOKASI (H/M/S) : ");
+                        scanf("%d %d %d", &jam, &mnt, &dtk);
+                        printf("WAKTU PELANGGAN DI LOKASI : %d JAM %d MENIT %d DETIK", jam, mnt, dtk);
+                        costCountB(data[1].price, jam);
+                        break;
+                    }
+                }
+                else
+                {
+                    printf("KODE YANG ANDA MASUKKAN SALAH!!!");
+                }
             }
             break;
         case 5:
-            exit(1);
             break;
         }
-        return 0;
     }
+    return 0;
 }
 
 void title()
