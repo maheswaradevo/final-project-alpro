@@ -333,7 +333,7 @@ int main()
     nama();
     while (1)
     {
-        printf("\n1. MASUKKAN IDENTITAS ANDA\n");
+        printf("1. MASUKKAN IDENTITAS ANDA\n");
         printf("2. TIKET\n");
         printf("3. SOUVENIR\n");
         printf("4. TOKO MAKANAN\n");
