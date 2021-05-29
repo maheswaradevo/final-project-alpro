@@ -354,6 +354,11 @@ int main()
             switch (ch)
             {
             case 1:
+                printf("silahkan masukkan saldo :Rp.");
+                scanf("%d", &tiket[j].saldo);
+                printf("=============================\n");
+                printf("   Saldo telah diisi\n");
+                printf("=============================\n");
                 break;
 
             case 2:
