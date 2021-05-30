@@ -329,6 +329,7 @@ void delete(){
         printf("KODE YANG ANDA MASUKKAN SALAH!!!");
     fclose(SOUVENIR);
 }
+
 void title();
 void nama();
 
