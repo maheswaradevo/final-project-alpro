@@ -137,12 +137,12 @@ void daftar_souvenir()
 {
     Souvenir Produk;
     SOUVENIR = fopen("souvenir.txt", "r");
-    printf("========================================================================================\n");
+    printf("========================================================================\n");
     printf("NO \t");
     printf("NAMA \t\t\t\t");
     printf("JUMLAH \t");
     printf("HARGA ");
-    printf("\n======================================================================================\n");
+    printf("\n========================================================================\n");
     while (!feof(SOUVENIR))
     {
         fscanf(SOUVENIR, "%[^_]_%i_%i_%i\n", &Produk.nama, &Produk.no, &Produk.jmlh, &Produk.harga);
@@ -296,6 +296,34 @@ void update_stock()
         {
             fprintf(SOUVENIR, "%s_%i_%i_%i\n", Produk[i].nama, Produk[i].no, Produk[i].jmlh, Produk[i].harga);
         }
+    }
+    else
+        printf("KODE YANG ANDA MASUKKAN SALAH!!!");
+    fclose(SOUVENIR);
+}
+
+void delete(){
+    Souvenir Produk[20];
+    char pilihan;
+    int index, i, jmlh;
+    index = 0;
+    int code;
+    printf("UNTUK MELAKUKAN OPERASI INI ANDA HARUS MEMASUKKAN KODE ADMIN\n");
+    printf("MASUKKAN KODE DISINI : ");
+    scanf("%i", &code);
+    fflush(stdin);
+    if (code == 61105)
+    {
+        daftar_souvenir();
+        printf("APAKAH ANDA YAKIN INGIN MENGHAPUS DAFTAR DI ATAS? \t: ");
+        scanf("%c", &pilihan);
+        fflush(stdin);
+         if(pilihan == 'y' || pilihan == 'Y'){
+            SOUVENIR = fopen("souvenir.txt", "w");
+            fclose(SOUVENIR);
+            printf("SELAMAT DATA BERHASIL DIHAPUS!\n");
+         }
+         else printf("DATA BELUM BERHASIL DIHAPUS!!!\n");
     }
     else
         printf("KODE YANG ANDA MASUKKAN SALAH!!!");
@@ -896,7 +924,11 @@ int main()
                     update_stock();
                     break;
                 case '6':
-                    // delete_stock();
+                    system("cls");
+                    printf("________________________________________________________________________\n");
+                    printf("|                                 DELETE                               |\n");
+                    printf("|______________________________________________________________________|\n");
+                    delete();
                     break;
                 case '7':
                     main();
