@@ -17,15 +17,8 @@ typedef struct{
     int harga;
 }Souvenir;
 
-typedef struct{
-    char name[50];
-    int no;
-    int jmlh;
-    int harga;
-}Delete;
 
 FILE*SOUVENIR;
-FILE*SOUVENIR_CPY;
 FILE*PEMBELIAN;
 
 int main(){
@@ -221,6 +214,7 @@ void pembelian(){
 
 void update_stock(){
 	Souvenir Produk[20];
+	int nomor;
 	char cari[50];
 	int index, i, jmlh;
 	index = 0;
@@ -256,66 +250,9 @@ void update_stock(){
 			fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk[i].nama, Produk[i].no, Produk[i].jmlh, Produk[i].harga);
 		}
 	}
-	else printf("Kode yang anda masukkan salah!!!");
+	else printf("Kode yang anda masukkan salah!!!\n");
 	fclose(SOUVENIR);
 }
 
 void delete(){
-	Souvenir Produk[20];
-	Delete Del[20];
-	int nomor;
-	int index, i;
-	int indx = 0;
-	index = 0;
-	int code;
-	char pilihan;
-	printf("Untuk melakukan operasi ini anda harus memasukkan kode admin!\n");
-	printf("Masukkan kode disini : ");
-	scanf("%i", &code); fflush(stdin);
-	if(code == 61105){
-		daftar_souvenir();
-		SOUVENIR = fopen("souvenir.txt", "r");
-		SOUVENIR_CPY = fopen("souvenir_cpy.txt", "w");
-		printf("Masukan Nomor Produk yang ingin di delete \t: ");
-		scanf("%i", &nomor); fflush(stdin);
-		while (!feof(SOUVENIR)){
-			fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk[index].nama, &Produk[index].no, &Produk[index].jmlh, &Produk[index].harga);
-			fflush(stdin);
-			if(nomor == Produk[index].no){
-				printf("Nama Produk \t\t: %s\n", Produk[index].nama);
-				printf("No Produk \t\t: %i\n", Produk[index].no);
-				printf("Jumlah Produk \t\t: %i\n", Produk[index].jmlh);
-				printf("Harga Produk \t\t: %i\n\n", Produk[index].harga);
-				/*printf("Yakin ingin mendelete item ini? (y/t) ");
-				scanf("%c", pilihan);
-				if(pilihan == 'y'){
-					while (!feof(SOUVENIR)){
-					fscanf(SOUVENIR,"%[^_]_%i_%i_%i\n", &Produk[indx].nama, &Produk[indx].no, &Produk[indx].jmlh, &Produk[indx].harga);
-					fflush(stdin);
-						if(nomor != Produk[indx].no){
-							Del[indx].no = Produk[indx].no;
-							Del[indx].jmlh = Produk[indx].jmlh;
-							Del[indx].harga = Produk[indx].harga;
-						}
-						indx++;
-					}
-				printf("Tunggu Sebentar...\n");
-				printf("Selamat! Produk sudah berhasil di delete.\n");
-				*/}
-			else{
-				
-			}
-			index++;
-			}
-		//}
-			fclose(SOUVENIR);
-			SOUVENIR = fopen("souvenir.txt","w");
-			fclose(SOUVENIR);
-			SOUVENIR = fopen("souvenir.txt","a");
-			for(i=0; i<index; i++){
-				fprintf(SOUVENIR,"%s_%i_%i_%i\n", Produk[i].nama, Del[i].no, Del[i].jmlh, Del[i].harga);
-			} 
-	}
-	else printf("Kode yang anda masukkan salah!!!");
-	fclose(SOUVENIR);
 }
